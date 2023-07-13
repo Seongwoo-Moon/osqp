@@ -792,63 +792,47 @@ c_int validate_data(const OSQPData *data) {
   c_int j, ptr;
 
   if (!data) {
-# ifdef PRINTING
     c_eprint("Missing data");
-# endif
     return 1;
   }
 
   if (!(data->P)) {
-# ifdef PRINTING
     c_eprint("Missing matrix P");
-# endif
     return 1;
   }
 
   if (!(data->A)) {
-# ifdef PRINTING
     c_eprint("Missing matrix A");
-# endif
     return 1;
   }
 
   if (!(data->q)) {
-# ifdef PRINTING
     c_eprint("Missing vector q");
-# endif
     return 1;
   }
 
   // General dimensions Tests
   if ((data->n <= 0) || (data->m < 0)) {
-# ifdef PRINTING
     c_eprint("n must be positive and m nonnegative; n = %i, m = %i",
              (int)data->n, (int)data->m);
-# endif /* ifdef PRINTING */
     return 1;
   }
 
   // Matrix P
   if (data->P->m != data->n) {
-# ifdef PRINTING
     c_eprint("P does not have dimension n x n with n = %i", (int)data->n);
-# endif /* ifdef PRINTING */
     return 1;
   }
 
   if (data->P->m != data->P->n) {
-# ifdef PRINTING
     c_eprint("P is not square");
-# endif /* ifdef PRINTING */
     return 1;
   }
 
   for (j = 0; j < data->n; j++) { // COLUMN
     for (ptr = data->P->p[j]; ptr < data->P->p[j + 1]; ptr++) {
       if (data->P->i[ptr] > j) {  // if ROW > COLUMN
-# ifdef PRINTING
         c_eprint("P is not upper triangular");
-# endif /* ifdef PRINTING */
         return 1;
       }
     }
@@ -856,19 +840,15 @@ c_int validate_data(const OSQPData *data) {
 
   // Matrix A
   if ((data->A->m != data->m) || (data->A->n != data->n)) {
-# ifdef PRINTING
     c_eprint("A does not have dimension %i x %i", (int)data->m, (int)data->n);
-# endif /* ifdef PRINTING */
     return 1;
   }
 
   // Lower and upper bounds
   for (j = 0; j < data->m; j++) {
     if (data->l[j] > data->u[j]) {
-# ifdef PRINTING
       c_eprint("Lower bound at index %d is greater than upper bound: %.4e > %.4e",
                (int)j, data->l[j], data->u[j]);
-# endif /* ifdef PRINTING */
       return 1;
     }
   }

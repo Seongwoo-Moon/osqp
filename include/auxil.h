@@ -6,7 +6,7 @@ extern "C" {
 # endif // ifdef __cplusplus
 
 # include "types.h"
-
+#define PRINTING
 
 /***********************************************************
 * Auxiliary functions needed to compute ADMM iterations * *
