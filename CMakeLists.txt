@@ -64,7 +64,7 @@ message(STATUS "Printing is ${PRINTING}")
 
 
 # Is profiling enabled?
-option (PROFILING "Enable solver profiling (timing)" ON)
+option (PROFILING "Enable solver profiling (timing)" OFF)
 if (DEFINED EMBEDDED)
     message(STATUS "Disabling profiling for embedded")
     set(PROFILING OFF)
@@ -92,7 +92,7 @@ endif()
 message(STATUS "Long integers (64bit) are ${DLONG}")
 
 
-option (DEBUG "Debug mode" OFF)
+option (DEBUG "Debug mode" ON)
 if (CMAKE_BUILD_TYPE STREQUAL "Debug")
 	set (DEBUG ON)
 	message(STATUS "Debug mode is ${DEBUG}")
